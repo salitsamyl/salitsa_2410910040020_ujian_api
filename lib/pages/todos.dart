@@ -27,13 +27,52 @@ class _TodosState extends State<Todos> {
             List<TodosModel> todos = snapshot.data!;
             return ListView.builder(
               itemCount: todos.length,
-              itemBuilder: (context, index){
-                return Padding(padding: EdgeInsets.only(right: 15, left: 15, bottom: 5, top: 10),
-                child: Container(
-                  decoration: ,
-                ),
+              itemBuilder: (context, index) {
+                final item = todos[index]; // ← WAJIB! Ini yang hilang
+
+                return Padding(
+                  padding: EdgeInsets.only(right: 15, left: 15, bottom: 5, top: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 15),
+
+                        Icon(
+                          item.completed == true
+                              ? Icons.check_circle
+                              : Icons.cancel,
+                          color: item.completed == true
+                              ? Colors.green
+                              : Colors.red,
+                          size: 30,
+                        ),
+
+                        SizedBox(width: 20),
+
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            child: Text(
+                              item.todo,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: item.completed == true
+                                    ? Colors.green
+                                    : Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
-              }
+              },
             );
           },
         ),
