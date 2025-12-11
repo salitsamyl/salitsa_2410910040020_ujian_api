@@ -16,27 +16,51 @@ class _RegistrasiState extends State<Registrasi> {
   TextEditingController ageC = TextEditingController();
   TextEditingController emailC = TextEditingController();
   bool isLoading = false;
+  
 
   // function proses regis ke API
   Future<void>cekRegis()async{
+    // rubah kondisi isLoading
+    setState(() {
+      isLoading = true;
+    });
 
     // proses ke api
     Map<String,dynamic> regisUser = {
       "firstname" : firstNameC.text,
       "lastname" : lastNameC.text,
-      "age" : ageC.text,
+      "age" : int.parse(ageC.text),
       "email" : emailC.text,
     };
-    var uri = Uri.parse(" https://dummyjson.com/users/add");
-    
+    var uri = Uri.parse("https://dummyjson.com/users/add");
+    try {
+      var respon = await http.post(uri, 
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode(regisUser),
+      );
+      if(respon.statusCode == 200){
+        Navigator.pushReplacementNamed(context, "/todoList");
+      }else {
+        throw Exception("Registrasi Gagal");
+      }
+    } catch (e) {
+      // munculkan snapbar
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.toString()))
+        );
+      } finally{
+        setState(() {
+          isLoading = false;
+        });
+      }
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Padding(
-        padding: EdgeInsetsGeometry.all(20),
-        child: Column(
+        padding: EdgeInsets.all(20),
+        child: Column(  
           children: [
             SizedBox(height: 40),
               Text(
@@ -45,15 +69,17 @@ class _RegistrasiState extends State<Registrasi> {
               ),
               SizedBox(height: 40),
               TextField(
-                decoration: InputDecoration(
-                  hintText: "First Name",
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                  ),
+              controller: firstNameC,
+              decoration: InputDecoration(
+                hintText: "First Name",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                ),
               ),
+            ),
               SizedBox(height: 10,),
               TextField(
+                controller: lastNameC,
                 decoration: InputDecoration(
                   hintText: "Last Name",
                   border: OutlineInputBorder(
@@ -63,6 +89,7 @@ class _RegistrasiState extends State<Registrasi> {
               ),
               SizedBox(height: 10,),
               TextField(
+                controller: ageC,
                 decoration: InputDecoration(
                   hintText: "Age",
                   border: OutlineInputBorder(
@@ -72,12 +99,33 @@ class _RegistrasiState extends State<Registrasi> {
               ),
               SizedBox(height: 10,),
               TextField(
+                controller: emailC,
                 decoration: InputDecoration(
                   hintText: "Email",
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
                   ),
+              ),
+              SizedBox(height: 20,),
+              SizedBox(
+                height: 40,
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: isLoading ? null :() {
+                    cekRegis();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 14),
+                    backgroundColor: const Color.fromARGB(255, 64, 103, 134),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: isLoading ? CircularProgressIndicator(
+                    color: Colors.white,
+                  ) : Text("Masuk", style: TextStyle(color: Colors.white),),
+                ),
               ),           
           ],
         ),
