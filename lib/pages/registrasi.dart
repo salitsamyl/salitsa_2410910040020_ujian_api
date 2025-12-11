@@ -17,15 +17,48 @@ class _RegistrasiState extends State<Registrasi> {
         padding: EdgeInsetsGeometry.all(20),
         child: Column(
           children: [
-            TextField(
-              decoration: InputDecoration(labelText: "First Name"),
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: "Last Name"),
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: "Age"),
-            ),
+            SizedBox(height: 40),
+              Text(
+                "Registrasi",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 40),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "First Name",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                  ),
+              ),
+              SizedBox(height: 10,),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Last Name",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                  ),
+              ),
+              SizedBox(height: 10,),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Age",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                  ),
+              ),
+              SizedBox(height: 10,),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: "Email",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                  ),
+              ),
+            SizedBox(height: 20),
           ],
         ),
         ),
