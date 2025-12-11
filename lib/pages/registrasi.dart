@@ -9,10 +9,26 @@ class Registrasi extends StatefulWidget {
 }
 
 class _RegistrasiState extends State<Registrasi> {
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      
+      body: Padding(
+        padding: EdgeInsetsGeometry.all(20),
+        child: Column(
+          children: [
+            TextField(
+              decoration: InputDecoration(labelText: "First Name"),
+            ),
+            TextField(
+              decoration: InputDecoration(labelText: "Last Name"),
+            ),
+            TextField(
+              decoration: InputDecoration(labelText: "Age"),
+            ),
+          ],
+        ),
+        ),
     );
   }
 }
