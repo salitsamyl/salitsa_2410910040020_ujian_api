@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,6 +11,25 @@ class Registrasi extends StatefulWidget {
 }
 
 class _RegistrasiState extends State<Registrasi> {
+  TextEditingController firstNameC = TextEditingController();
+  TextEditingController lastNameC = TextEditingController();
+  TextEditingController ageC = TextEditingController();
+  TextEditingController emailC = TextEditingController();
+  bool isLoading = false;
+
+  // function proses regis ke API
+  Future<void>cekRegis()async{
+
+    // proses ke api
+    Map<String,dynamic> regisUser = {
+      "firstname" : firstNameC.text,
+      "lastname" : lastNameC.text,
+      "age" : ageC.text,
+      "email" : emailC.text,
+    };
+    var uri = Uri.parse(" https://dummyjson.com/users/add");
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +78,7 @@ class _RegistrasiState extends State<Registrasi> {
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
                   ),
-              ),
-            SizedBox(height: 20),
+              ),           
           ],
         ),
         ),
