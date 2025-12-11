@@ -38,8 +38,8 @@ class _RegistrasiState extends State<Registrasi> {
       headers: {"Content-Type": "application/json"},
       body: jsonEncode(regisUser),
       );
-      if(respon.statusCode == 200){
-        Navigator.pushReplacementNamed(context, "/todoList");
+      if(respon.statusCode == 201){
+        Navigator.pushReplacementNamed(context, "/todos");
       }else {
         throw Exception("Registrasi Gagal");
       }
