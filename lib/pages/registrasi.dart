@@ -27,8 +27,8 @@ class _RegistrasiState extends State<Registrasi> {
 
     // proses ke api
     Map<String,dynamic> regisUser = {
-      "firstname" : firstNameC.text,
-      "lastname" : lastNameC.text,
+      "firstName" : firstNameC.text,
+      "lastName" : lastNameC.text,
       "age" : int.parse(ageC.text),
       "email" : emailC.text,
     };
@@ -39,6 +39,12 @@ class _RegistrasiState extends State<Registrasi> {
       body: jsonEncode(regisUser),
       );
       if(respon.statusCode == 201){
+        var data = jsonDecode(respon.body);
+        String namaUser = data["firstName"] ?? "User";
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Berhasil Mendaftar: $namaUser"),),
+        );
         Navigator.pushReplacementNamed(context, "/todos");
       }else {
         throw Exception("Registrasi Gagal");
